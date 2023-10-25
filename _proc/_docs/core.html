@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="quick eda on missing values in pandas dataframe">
+<meta name="description" content="Fill in a module description here">
 
-<title>nansense</title>
+<title>nansense - core</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -94,14 +94,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
 <link rel="stylesheet" href="styles.css">
-<meta property="og:title" content="nansense">
-<meta property="og:description" content="quick eda on missing values in pandas dataframe">
+<meta property="og:title" content="nansense - core">
+<meta property="og:description" content="Fill in a module description here">
 <meta property="og:site-name" content="nansense">
-<meta name="twitter:title" content="nansense">
-<meta name="twitter:description" content="quick eda on missing values in pandas dataframe">
+<meta name="twitter:title" content="nansense - core">
+<meta name="twitter:description" content="Fill in a module description here">
 <meta name="twitter:card" content="summary">
 </head>
 
@@ -126,7 +129,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">nansense</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./core.html">core</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
     </div>
@@ -140,13 +143,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">nansense</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./core.html" class="sidebar-item-text sidebar-link">
+  <a href="./core.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">core</span></a>
   </div>
 </li>
@@ -160,8 +163,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#install" id="toc-install" class="nav-link active" data-scroll-target="#install">Install</a></li>
-  <li><a href="#how-to-use" id="toc-how-to-use" class="nav-link" data-scroll-target="#how-to-use">How to use</a></li>
+  <li><a href="#foo" id="toc-foo" class="nav-link active" data-scroll-target="#foo">foo</a></li>
+  <li><a href="#how-many-missing-values-per-column" id="toc-how-many-missing-values-per-column" class="nav-link" data-scroll-target="#how-many-missing-values-per-column">how many missing values per column</a></li>
+  <li><a href="#how-many-rows-have-multiple-missing-values" id="toc-how-many-rows-have-multiple-missing-values" class="nav-link" data-scroll-target="#how-many-rows-have-multiple-missing-values">how many rows have multiple missing values</a></li>
+  <li><a href="#concepts" id="toc-concepts" class="nav-link" data-scroll-target="#concepts">Concepts</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/peterwinter/nansense/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -170,12 +175,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">nansense</h1>
+<h1 class="title">core</h1>
 </div>
 
 <div>
   <div class="description">
-    quick eda on missing values in pandas dataframe
+    Fill in a module description here
   </div>
 </div>
 
@@ -191,20 +196,176 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 <!-- WARNING: THIS FILE WAS AUTOGENERATED! DO NOT EDIT! -->
-<p>This file will become your README and also the index of your documentation.</p>
-<section id="install" class="level2">
-<h2 class="anchored" data-anchor-id="install">Install</h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install nansense</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<hr>
+<p><a href="https://github.com/peterwinter/nansense/blob/main/nansense/core.py#L7" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="foo" class="level3">
+<h3 class="anchored" data-anchor-id="foo">foo</h3>
+<blockquote class="blockquote">
+<pre><code> foo ()</code></pre>
+</blockquote>
 </section>
-<section id="how-to-use" class="level2">
-<h2 class="anchored" data-anchor-id="how-to-use">How to use</h2>
-<p>Fill me in please! Don’t forget code examples:</p>
+<section id="how-many-missing-values-per-column" class="level3">
+<h3 class="anchored" data-anchor-id="how-many-missing-values-per-column">how many missing values per column</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="op">+</span><span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>X, y <span class="op">=</span> fetch_openml(<span class="st">"titanic"</span>, version<span class="op">=</span><span class="dv">1</span>, as_frame<span class="op">=</span><span class="va">True</span>, return_X_y<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>X.isna().<span class="bu">sum</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/usr/local/Caskroom/mambaforge/base/envs/eda/lib/python3.11/site-packages/sklearn/datasets/_openml.py:1002: FutureWarning: The default value of `parser` will change from `'liac-arff'` to `'auto'` in 1.4. You can set `parser='auto'` to silence this warning. Therefore, an `ImportError` will be raised from 1.4 if the dataset is dense and pandas is not installed. Note that the pandas parser may return different data types. See the Notes Section in fetch_openml's API doc for details.
+  warn(</code></pre>
+</div>
 <div class="cell-output cell-output-display">
-<pre><code>2</code></pre>
+<pre><code>pclass          0
+name            0
+sex             0
+age           263
+sibsp           0
+parch           0
+ticket          0
+fare            1
+cabin        1014
+embarked        2
+boat          823
+body         1188
+home.dest     564
+dtype: int64</code></pre>
 </div>
 </div>
+</section>
+<section id="how-many-rows-have-multiple-missing-values" class="level3">
+<h3 class="anchored" data-anchor-id="how-many-rows-have-multiple-missing-values">how many rows have multiple missing values</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>X.isna().<span class="bu">sum</span>(axis<span class="op">=</span><span class="dv">1</span>).value_counts(sort<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>1    186
+2    290
+3    399
+4    278
+5    156
+Name: count, dtype: int64</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>X.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">pclass</th>
+<th data-quarto-table-cell-role="th">name</th>
+<th data-quarto-table-cell-role="th">sex</th>
+<th data-quarto-table-cell-role="th">age</th>
+<th data-quarto-table-cell-role="th">sibsp</th>
+<th data-quarto-table-cell-role="th">parch</th>
+<th data-quarto-table-cell-role="th">ticket</th>
+<th data-quarto-table-cell-role="th">fare</th>
+<th data-quarto-table-cell-role="th">cabin</th>
+<th data-quarto-table-cell-role="th">embarked</th>
+<th data-quarto-table-cell-role="th">boat</th>
+<th data-quarto-table-cell-role="th">body</th>
+<th data-quarto-table-cell-role="th">home.dest</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>1.0</td>
+<td>Allen, Miss. Elisabeth Walton</td>
+<td>female</td>
+<td>29.0000</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>24160</td>
+<td>211.3375</td>
+<td>B5</td>
+<td>S</td>
+<td>2</td>
+<td>NaN</td>
+<td>St Louis, MO</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>1.0</td>
+<td>Allison, Master. Hudson Trevor</td>
+<td>male</td>
+<td>0.9167</td>
+<td>1.0</td>
+<td>2.0</td>
+<td>113781</td>
+<td>151.5500</td>
+<td>C22 C26</td>
+<td>S</td>
+<td>11</td>
+<td>NaN</td>
+<td>Montreal, PQ / Chesterville, ON</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>1.0</td>
+<td>Allison, Miss. Helen Loraine</td>
+<td>female</td>
+<td>2.0000</td>
+<td>1.0</td>
+<td>2.0</td>
+<td>113781</td>
+<td>151.5500</td>
+<td>C22 C26</td>
+<td>S</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>Montreal, PQ / Chesterville, ON</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>1.0</td>
+<td>Allison, Mr. Hudson Joshua Creighton</td>
+<td>male</td>
+<td>30.0000</td>
+<td>1.0</td>
+<td>2.0</td>
+<td>113781</td>
+<td>151.5500</td>
+<td>C22 C26</td>
+<td>S</td>
+<td>NaN</td>
+<td>135.0</td>
+<td>Montreal, PQ / Chesterville, ON</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>1.0</td>
+<td>Allison, Mrs. Hudson J C (Bessie Waldo Daniels)</td>
+<td>female</td>
+<td>25.0000</td>
+<td>1.0</td>
+<td>2.0</td>
+<td>113781</td>
+<td>151.5500</td>
+<td>C22 C26</td>
+<td>S</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>Montreal, PQ / Chesterville, ON</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="concepts" class="level3">
+<h3 class="anchored" data-anchor-id="concepts">Concepts</h3>
+<p>What relationships do the different columns have to each other?</p>
+<ul>
+<li>Deterministic: every row follows this rule.</li>
+<li>Statistical: these rules tend to be followed in general.</li>
+</ul>
+<p>Types of relationships: - column block: an exact match for where nans occur - anticorrolated: when one is missing, the other is not. - potential dependency: missing values of B only occur if there’s a missing value of A.</p>
+<p>Maybe it’s better to</p>
 
 
 </section>

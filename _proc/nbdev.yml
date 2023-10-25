@@ -1,0 +1,9 @@
+project:
+  output-dir: _docs
+
+website:
+  title: "nansense"
+  site-url: "https://peterwinter.github.io/nansense"
+  description: "quick eda on missing values in pandas dataframe"
+  repo-branch: main
+  repo-url: "https://github.com/peterwinter/nansense"

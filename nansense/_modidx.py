@@ -5,4 +5,8 @@ d = { 'settings': { 'branch': 'main',
                 'doc_host': 'https://peterwinter.github.io',
                 'git_url': 'https://github.com/peterwinter/nansense',
                 'lib_path': 'nansense'},
-  'syms': {'nansense.core': {'nansense.core.foo': ('core.html#foo', 'nansense/core.py')}}}
+  'syms': { 'nansense.core': { 'nansense.core.counts_sorted': ('core.html#counts_sorted', 'nansense/core.py'),
+                               'nansense.core.isna': ('core.html#isna', 'nansense/core.py'),
+                               'nansense.core.isya': ('core.html#isya', 'nansense/core.py'),
+                               'nansense.core.n_in_cols': ('core.html#n_in_cols', 'nansense/core.py'),
+                               'nansense.core.n_in_rows': ('core.html#n_in_rows', 'nansense/core.py')}}}

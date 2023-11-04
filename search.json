@@ -1,0 +1,30 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "nansense",
+    "section": "",
+    "text": "This file will become your README and also the index of your documentation."
+  },
+  {
+    "objectID": "index.html#install",
+    "href": "index.html#install",
+    "title": "nansense",
+    "section": "Install",
+    "text": "Install\npip install nansense"
+  },
+  {
+    "objectID": "index.html#how-to-use",
+    "href": "index.html#how-to-use",
+    "title": "nansense",
+    "section": "How to use",
+    "text": "How to use\nFill me in please! Don’t forget code examples:\n\n1+1\n\n2"
+  },
+  {
+    "objectID": "core.html",
+    "href": "core.html",
+    "title": "core",
+    "section": "",
+    "text": "how many missing values per column\n\ndf = pd.read_csv(\"../data/titantic.csv\", index_col=0)\ndf.head()\n\n\n\n\n\n\n\n\npclass\nname\nsex\nage\nsibsp\nparch\nticket\nfare\ncabin\nembarked\nboat\nbody\nhome.dest\n\n\n\n\n0\n1.0\nAllen, Miss. Elisabeth Walton\nfemale\n29.0000\n0.0\n0.0\n24160\n211.3375\nB5\nS\n2\nNaN\nSt Louis, MO\n\n\n1\n1.0\nAllison, Master. Hudson Trevor\nmale\n0.9167\n1.0\n2.0\n113781\n151.5500\nC22 C26\nS\n11\nNaN\nMontreal, PQ / Chesterville, ON\n\n\n2\n1.0\nAllison, Miss. Helen Loraine\nfemale\n2.0000\n1.0\n2.0\n113781\n151.5500\nC22 C26\nS\nNaN\nNaN\nMontreal, PQ / Chesterville, ON\n\n\n3\n1.0\nAllison, Mr. Hudson Joshua Creighton\nmale\n30.0000\n1.0\n2.0\n113781\n151.5500\nC22 C26\nS\nNaN\n135.0\nMontreal, PQ / Chesterville, ON\n\n\n4\n1.0\nAllison, Mrs. Hudson J C (Bessie Waldo Daniels)\nfemale\n25.0000\n1.0\n2.0\n113781\n151.5500\nC22 C26\nS\nNaN\nNaN\nMontreal, PQ / Chesterville, ON\n\n\n\n\n\n\n\n\ndef is_na(df): return df.isna()\ndef is_ya(df): return df.isna() == False\ndef sum_cols(df): return df.sum()\ndef sum_rows(df): return df.sum(axis=1)\ndef value_counts(s): return s.value_counts(sort=False).sort_index()\n\nsum_cols(is_na(df))\n\npclass          0\nname            0\nsex             0\nage           263\nsibsp           0\nparch           0\nticket          0\nfare            1\ncabin        1014\nembarked        2\nboat          823\nbody         1188\nhome.dest     564\ndtype: int64\n\n\nQ: What does df.isna().sum(axis=1) mean when axis is set to 0 or 1 ?\nA: - 0=columns(default) - 1=rows\nmy simple composable functions barely save us any space, though they are significantly\n\nrow_counts = compose(is_na, sum_rows, value_counts)(df)\nrow_counts = df.isna().sum(axis=1).value_counts(sort=False).sort_index()\n\nrow_counts\n\n1    186\n2    290\n3    399\n4    278\n5    156\ndtype: int64\n\n\n\n# col_counts = counts(na_in_cols(df))\n\ncol_counts = compose(is_na, sum_cols, value_counts)(df)\n\ncol_counts\n\n0       6\n1       1\n2       1\n263     1\n564     1\n823     1\n1014    1\n1188    1\ndtype: int64\n\n\n\n\nhow many rows have multiple missing values\n\ncompose(is_na, sum_cols, value_counts)(df)\n\n0       6\n1       1\n2       1\n263     1\n564     1\n823     1\n1014    1\n1188    1\ndtype: int64\n\n\n\ndef counts_to_cdf(count_df): return count_df.cumsum() / sum(count_df)\n\nrow_cdf = counts_to_cdf(row_counts)\nrow_cdf\n\n1    0.142093\n2    0.363636\n3    0.668449\n4    0.880825\n5    1.000000\ndtype: float64\n\n\n\ncounts_to_cdf(col_counts)\n\n0       0.461538\n1       0.538462\n2       0.615385\n263     0.692308\n564     0.769231\n823     0.846154\n1014    0.923077\n1188    1.000000\ndtype: float64\n\n\n\ndef plot_cdf(cdf):\n    fig, ax = plt.subplots()\n    sns.lineplot(ax=ax, data=cdf)\nplot_cdf(row_cdf)\nplt.show()\n\n\n\n\n\n\nConcepts\nWhat relationships do the different columns have to each other?\n\nDeterministic: every row follows this rule.\nStatistical: these rules tend to be followed in general.\n\nTypes of relationships: - column block: an exact match for where nans occur - anticorrolated: when one is missing, the other is not. - potential dependency: missing values of B only occur if there’s a missing value of A.\nMaybe it’s better to\n\ndef conditional_nan_p(df):\n    cols = df.columns\n    dats = {}\n    ndf = df.isna()\n    interesting_cols = []\n    for col in cols:\n        nans_index = ndf[col]\n        n_nans = sum(nans_index)\n        if n_nans == 0:\n            row = pd.Series(0, index=cols)\n        else:\n            row = ndf.loc[nans_index].sum() / n_nans\n            interesting_cols.append(col)\n        dats[col] = row\n    print(interesting_cols)\n    cor = pd.DataFrame(dats)\n    ones = pd.DataFrame(np.ones(cor.shape), index=cor.index, columns=cor.columns)\n    return cor.loc[interesting_cols, interesting_cols]\n\ncor = conditional_nan_p(df)\ncor\n\n['age', 'fare', 'cabin', 'embarked', 'boat', 'body', 'home.dest']\n\n\n\n\n\n\n\n\n\nage\nfare\ncabin\nembarked\nboat\nbody\nhome.dest\n\n\n\n\nage\n1.000000\n0.0\n0.236686\n0.0\n0.235723\n0.220539\n0.359929\n\n\nfare\n0.000000\n1.0\n0.000986\n0.0\n0.001215\n0.000000\n0.001773\n\n\ncabin\n0.912548\n1.0\n1.000000\n0.0\n0.876063\n0.778620\n0.934397\n\n\nembarked\n0.000000\n0.0\n0.000000\n1.0\n0.000000\n0.001684\n0.001773\n\n\nboat\n0.737643\n1.0\n0.711045\n0.0\n1.000000\n0.590909\n0.742908\n\n\nbody\n0.996198\n0.0\n0.912229\n1.0\n0.852977\n1.000000\n0.914894\n\n\nhome.dest\n0.771863\n1.0\n0.519724\n0.5\n0.509113\n0.434343\n1.000000"
+  }
+]
